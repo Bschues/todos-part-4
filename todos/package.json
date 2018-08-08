@@ -2,7 +2,7 @@
   "name": "todos",
   "version": "0.1.0",
   "private": true,
-  "hompage": "https://bschues.github.io/todos-part-1",
+  "homepage": "https://bschues.github.io/todos-part-1",
   "dependencies": {
     "gh-pages": "^1.2.0",
     "react": "^16.4.2",
@@ -10,6 +10,8 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
