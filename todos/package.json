@@ -2,7 +2,9 @@
   "name": "todos",
   "version": "0.1.0",
   "private": true,
+  "hompage": "https://bschues.github.io/todos-part-1",
   "dependencies": {
+    "gh-pages": "^1.2.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-scripts": "1.1.4"
