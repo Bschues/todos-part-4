@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
-import {TodoItem} from './TodoItem'
+import TodoItem from './TodoItem'
+import {connect} from 'react-redux';
 
-export class ToDoList extends Component {
+ class ToDoList extends Component {
+   
     render() {
       return (
       <React.Fragment>
@@ -9,9 +11,6 @@ export class ToDoList extends Component {
             {this.props.todos.map( todo => {
                   return(
                     <TodoItem
-                      onClick={(event) => this.props.onClick(event)}
-                      removeItem={(event) => this.props.removeItem(event)}
-                      toggleChecked={this.props.toggleChecked}
                       toDoItem={todo.title}
                       completed={todo.completed}
                       key={todo.id}
@@ -26,3 +25,14 @@ export class ToDoList extends Component {
       )
     }
   }
+
+  const mapStateToProps = (state, ownProps) => {
+    if(ownProps.filter === 'all'){
+      return {todos: state.todos}
+    }else if(ownProps.filter === 'active'){
+      return {todos: state.todos.filter(todo => !todo.completed)}
+    }else if(ownProps.filter === 'completed'){
+      return {todos: state.todos.filter(todo => todo.completed)}
+    }
+  }
+  export default connect(mapStateToProps)(ToDoList)

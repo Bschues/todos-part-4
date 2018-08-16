@@ -1,80 +1,25 @@
 import React, {Component} from 'react'
 import '../index.css'
-import {ToDoList} from './TodoList.jsx'
-import todoList from '../todos.json'
+import ToDoList from './TodoList.jsx'
 import {Link, Route, Switch} from 'react-router-dom'
+import {addTodo, clearCompleted} from '../actions.js'
 
 class App extends Component {
     constructor (props) {
       super(props)
-      this.state = {todos: todoList}
       this.handleKeyPress = this.handleKeyPress.bind(this)
     }
 
-
-  removeItem = (event) => {
-    let stateCopy = this.state.todos.slice()
-    const newTodoList = stateCopy.filter( todo => todo.id !== Number(event.target.name))
-    this.setState({todos: newTodoList})
+  removeCompleted = () => {
+    this.props.dispatch(clearCompleted())
   }
-
-  removeCompleted = (event) => {
-    let stateCopy2 = this.state.todos.slice()
-    const unfinishedTodos = stateCopy2.filter(item => item.completed !== true)
-    this.setState({todos: unfinishedTodos})
-  }
-
-  toggleChecked = (event) => {
-    const newList = this.state.todos.slice();
-    const itemIndex = newList.findIndex( todo => todo.id === Number(event.target.name))
-    newList[itemIndex].completed = !newList[itemIndex].completed;
-    this.setState({todos: newList})
-    console.log("checked")
-  }
-
 
   handleKeyPress(event) {
-    if(event.charCode===13) { 
-      const todoArray = this.state.todos.slice()
-        todoArray.push({
-          userId: 1,
-          id: (todoArray.length + 1),
-          title: event.target.value,
-          completed: false
-        })
-        this.setState({todos: todoArray})
+    if(event.charCode===13) {
+      let title = event.target.value
+      this.props.dispatch(addTodo(title))
         event.target.value = ""
       }
-  }
-
-  todosCollection = () => {
-      return (
-            <ToDoList 
-            todos={this.state.todos}
-            toggleChecked={(event) => this.toggleChecked(event)} 
-            removeItem={(event) => this.removeItem(event)}
-            />
-      )
-  }
-  todosActive = () => {
-      let active = this.state.todos.filter( todo => todo.completed===false)
-      return (
-            <ToDoList
-            todos={active}
-            toggleChecked={this.toggleChecked}
-            removeItem={this.removeItem}
-            />
-      )
-  }
-  todosCompleted = () => {
-      let completed = this.state.todos.filter( todo => todo.completed === true)
-      return (
-          <ToDoList
-          todos={completed}
-          toggleChecked={this.toggleChecked}
-          removeItem={this.removeItem}
-          />
-      )
   }
   render() {
     return (
@@ -90,9 +35,9 @@ class App extends Component {
           />
         </header>
         <Switch>
-            <Route exact path='/' component={this.todosCollection}/>
-            <Route path='/active' component={this.todosActive}/>
-            <Route path='/completed' component={this.todosCompleted}/>
+            <Route exact path='/' render={ props => <ToDoList {...props} filter="all"/>}/>
+            <Route path='/active' render={ props => <ToDoList {...props} filter="active"/>}/>
+            <Route path='/completed' render={props => <ToDoList {...props} filter="completed"/>}/>
         </Switch>
         <footer className="footer">
           <span className="todo-count"><strong>0</strong> item(s) left</span>
