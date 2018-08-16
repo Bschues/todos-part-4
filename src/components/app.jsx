@@ -13,13 +13,14 @@ class App extends Component {
 
 
   removeItem = (event) => {
-    const newTodoList = this.state.todos.filter( todo => todo.id !== Number(event.target.name))
+    let stateCopy = this.state.todos.slice()
+    const newTodoList = stateCopy.filter( todo => todo.id !== Number(event.target.name))
     this.setState({todos: newTodoList})
   }
 
   removeCompleted = (event) => {
-    let stateCopy = this.state.todos.slice()
-    const unfinishedTodos = stateCopy.filter(item => item.completed !== true)
+    let stateCopy2 = this.state.todos.slice()
+    const unfinishedTodos = stateCopy2.filter(item => item.completed !== true)
     this.setState({todos: unfinishedTodos})
   }
 
@@ -89,9 +90,9 @@ class App extends Component {
           />
         </header>
         <Switch>
-            <Route exact path="/" Component={this.todosCollection}/>
-            <Route path="/active" Component={this.todosActive}/>
-            <Route path="/completed" Component={this.todosCollection}/>
+            <Route exact path='/' component={this.todosCollection}/>
+            <Route path='/active' component={this.todosActive}/>
+            <Route path='/completed' component={this.todosCompleted}/>
         </Switch>
         <footer className="footer">
           <span className="todo-count"><strong>0</strong> item(s) left</span>
@@ -103,7 +104,7 @@ class App extends Component {
               <Link to='/active'>Active</Link>
             </li>
             <li>
-              <Link to='/completed'>Completd</Link>
+              <Link to='/completed'>Completed</Link>
             </li>
 
           </ul>
