@@ -17,7 +17,7 @@ class Foot extends Component {
         </span>
         <ul className="filters">
           <li>
-            <Link to="/" className={this.props.filter === 'all' ? 'selected' : ''}>All</Link>
+            <Link to="/home" className={this.props.filter === 'all' ? 'selected' : ''}>All</Link>
           </li>
           <li>
             <Link to="/active" className={this.props.filter === 'active' ? 'selected' : ''}>Active</Link>
