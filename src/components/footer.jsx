@@ -8,21 +8,22 @@ class Foot extends Component {
     console.log("removed");
     this.props.dispatch(clearCompleted());
   };
+
   render() {
     return (
       <footer className="footer">
         <span className="todo-count">
-          <strong>0</strong> item(s) left
+          <strong>{this.props.activeCount}</strong> item(s) left
         </span>
         <ul className="filters">
           <li>
-            <Link to="/">All</Link>
+            <Link to="/" className={this.props.filter === 'all' ? 'selected' : ''}>All</Link>
           </li>
           <li>
-            <Link to="/active">Active</Link>
+            <Link to="/active" className={this.props.filter === 'active' ? 'selected' : ''}>Active</Link>
           </li>
           <li>
-            <Link to="/completed">Completed</Link>
+            <Link to="/completed" className={this.props.filter === 'completed' ? 'selected' : ''}>Completed</Link>
           </li>
         </ul>
         <button className="clear-completed" onClick={this.removeCompleted}>
@@ -34,7 +35,8 @@ class Foot extends Component {
 }
 const mapStateTpProps = state => {
   return {
-    todos: state.todos
+    todos: state.todos,
+    activeCount: state.todos.filter(todo => !todo.completed).length
   };
 };
 export default connect(mapStateTpProps)(Foot);
