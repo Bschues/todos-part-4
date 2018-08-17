@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {markComplete, deleteTodo} from '../actions.js';
 
-  class TodoItem extends React.Component {
+  class TodoItem extends Component {
 
   toggleChecked = id => e => {
       this.props.dispatch(markComplete(id))
@@ -13,7 +13,7 @@ import {markComplete, deleteTodo} from '../actions.js';
   removeItem = id => () => {
     this.props.dispatch(deleteTodo(id))
     }
-
+    
     render() {
       return(
         <li className={this.props.completed ? "completed" : ""}>
