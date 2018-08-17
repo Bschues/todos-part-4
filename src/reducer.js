@@ -5,6 +5,10 @@ const initialState = {
     todos: todoList
 }
 
+function randomId() { 
+    return(
+    ((Math.floor(Math.random() * 190000) + 1) ,console.log(initialState)) )}
+
 export default function todoReducer(state = initialState, action) {
     switch (action.type) {
         case MARK_COMPLETE:
@@ -21,7 +25,8 @@ export default function todoReducer(state = initialState, action) {
                 todos: [
                     ...state.todos,
                     {   
-                        id: state.todos.length + 1,
+                        userId: 1,
+                        id: randomId,
                         title: action.title,
                         completed: false
                     }

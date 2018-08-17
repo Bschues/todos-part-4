@@ -23,5 +23,12 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
   "main": "index.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bschues/todos-part-4.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Bschues/todos-part-4/issues"
+  }
 }

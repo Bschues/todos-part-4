@@ -1,24 +1,45 @@
-import React, {Component} from 'react'
-import '../index.css'
-import ToDoList from './TodoList.jsx'
-import Head from './header.jsx'
-import Foot from './footer.jsx'
-import {Route, Switch} from 'react-router-dom'
-
-
+import React, { Component } from "react";
+import "../index.css";
+import ToDoList from "./TodoList.jsx";
+import Head from "./header.jsx";
+import Foot from "./footer.jsx";
+import { Route, Switch } from "react-router-dom";
 
 class App extends Component {
-    
   render() {
     return (
       <section className="todoapp">
-        <Head/>
+        <Head />
         <Switch>
-            <Route exact path='/' render={ props => <ToDoList {...props} filter="all"/>}/>
-            <Route path='/active' render={ props => <ToDoList {...props} filter="active"/>}/>
-            <Route path='/completed' render={props => <ToDoList {...props} filter="completed"/>}/>
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <React.Fragment>
+                <ToDoList {...props} filter="all" /> <Foot filter="all" />
+              </React.Fragment>
+            )}
+          />
+
+          <Route
+            path="/active"
+            render={props => (
+              <React.Fragment>
+                <ToDoList {...props} filter="active" /> <Foot filter="active" />
+              </React.Fragment>
+            )}
+          />
+
+          <Route
+            path="/completed"
+            render={props => (
+              <React.Fragment>
+                <ToDoList {...props} filter="completed" />{" "}
+                <Foot filter="completed" />
+              </React.Fragment>
+            )}
+          />
         </Switch>
-        <Foot/>
       </section>
     );
   }
