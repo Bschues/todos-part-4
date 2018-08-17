@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "../index.css";
 import ToDoList from "./TodoList.jsx";
-import Head from "./header.jsx";
-import Foot from "./footer.jsx";
+import Head from "./Header.jsx";
+import Foot from "./Footer.jsx";
 import { Route, Switch } from "react-router-dom";
 
 class App extends Component {

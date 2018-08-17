@@ -1,22 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter} from 'react-router-dom'
-import './index.css';
-import App from './components/app.jsx';
-import registerServiceWorker from './registerServiceWorker';
-import todoReducer from './reducer.js';
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
+import { createStore, applyMiddleware, compose } from "redux";
+import { Provider } from "react-redux";
+import todoReducer from "./reducer";
+import registerServiceWorker from "./registerServiceWorker";
+import "./index.css";
+import { createBrowserHistory } from "history";
+import { connectRouter, routerMiddleware } from "connected-react-router";
+import { ConnectedRouter } from "connected-react-router";
 
-const store = createStore(todoReducer)
 
-const Index = () => (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Provider store={store}>
-            <App/>
-        </Provider>
-    </BrowserRouter>
-)
+const history = createBrowserHistory();
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  connectRouter(history)(todoReducer),
+  composeEnhancers(
+    applyMiddleware(
+      routerMiddleware(history) // for dispatching history actions
+    )
+  )
+);
 
-ReactDOM.render(<Index/>, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById("root")
+);
+
 registerServiceWorker();
