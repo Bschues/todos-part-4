@@ -11,7 +11,7 @@ import {Provider} from 'react-redux';
 const store = createStore(todoReducer)
 
 const Index = () => (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>
             <App/>
         </Provider>
