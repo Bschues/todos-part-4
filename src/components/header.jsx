@@ -12,10 +12,11 @@ class Head extends Component {
     if (event.charCode === 13) {
       console.log(this.props);
       let title = event.target.value;
-      this.props.dispatch(addTodo(title));
+      this.props.addTodo(title)
       event.target.value = "";
     }
   }
+
   render() {
     return (
       <header className="header">
@@ -31,9 +32,16 @@ class Head extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return {
     todos: state.todos
   };
 };
-export default connect(mapStateToProps)(Head);
+
+const mapDistpatchToProps = dispatch => {
+  return {
+    addTodo: (title) => {dispatch(addTodo(title))}
+  }
+}
+export default connect(mapStateToProps,mapDistpatchToProps)(Head);

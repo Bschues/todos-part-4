@@ -1,17 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { markComplete, deleteTodo } from "../actions.js";
+import {markComplete, deleteTodo } from "../actions.js";
 
 class TodoItem extends Component {
-  toggleChecked = id => e => {
-    this.props.dispatch(markComplete(id));
-    console.log("checked");
-  };
-
-  removeItem = id => () => {
-    console.log(id);
-    this.props.dispatch(deleteTodo(id));
-  };
 
   render() {
     return (
@@ -21,17 +12,22 @@ class TodoItem extends Component {
             className="toggle"
             type="checkbox"
             defaultChecked={this.props.completed}
-            onChange={this.toggleChecked(this.props.id)}
+            onChange={()=>{this.props.markComplete(this.props.id)}}
           />
           <label>{this.props.toDoItem}</label>
           <button
             className="destroy"
-            onClick={this.removeItem(this.props.id)}
+            onClick={()=>{this.props.deleteTodo(this.props.id)}}
           />
         </div>
       </li>
     );
   }
 }
-
-export default connect()(TodoItem);
+const mapDispatchToProps = dispatch => {
+  return {
+    markComplete: (id) => {dispatch(markComplete(id))},
+    deleteTodo: (id) => {dispatch(deleteTodo(id))} 
+  }
+}
+export default connect(null, mapDispatchToProps)(TodoItem);

@@ -6,8 +6,7 @@ const initialState = {
 }
 
 function randomId() { 
-    return(
-    ((Math.floor(Math.random() * 190000) + 1) ,console.log(initialState)) )}
+    return(Math.floor(Math.random() * 190000) + 1)}
 
 export default function todoReducer(state = initialState, action) {
     switch (action.type) {
@@ -26,7 +25,7 @@ export default function todoReducer(state = initialState, action) {
                     ...state.todos,
                     {   
                         userId: 1,
-                        id: randomId,
+                        id: randomId(),
                         title: action.title,
                         completed: false
                     }
