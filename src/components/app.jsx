@@ -16,7 +16,8 @@ class App extends Component {
             path="/"
             render={props => (
               <React.Fragment>
-                <ToDoList {...props} filter="all" /> <Foot filter="all" />
+                <ToDoList {...props} filter="all" /> 
+                <Foot filter="all" />
               </React.Fragment>
             )}
           />
@@ -25,7 +26,8 @@ class App extends Component {
             path="/active"
             render={props => (
               <React.Fragment>
-                <ToDoList {...props} filter="active" /> <Foot filter="active" />
+                <ToDoList {...props} filter="active" /> 
+                <Foot filter="active" />
               </React.Fragment>
             )}
           />
